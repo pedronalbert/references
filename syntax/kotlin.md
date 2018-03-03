@@ -52,6 +52,11 @@ fun sum(a: Int, b: Int): Int {
 fun sum(a: Int, b: Int) = a + b
 ```
 
+### Named Arguments
+```kotlin
+sum(b = 4)
+```
+
 ## Control Flow
 ### If
 ```kotlin
