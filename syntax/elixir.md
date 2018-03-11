@@ -105,6 +105,17 @@ unless cond do
 end
 ```
 
+### With
+```elixir
+with {:ok, user} <- create_user,
+  {:ok, comments} <- get_comments(user)
+do
+  {:ok, comments}
+else
+  {:error, reason} -> {:error, reason}
+end
+```
+
 ### do/end blocks
 ```elixir
 if true, do: 1 + 2, else: 1 + 3
@@ -214,24 +225,23 @@ end
 try do
   # ...
 rescue
-  # ...
+  e in RuntimeError -> # ...
+  e -> # ...
 after
   # ...
+end
+```
+
+### Custom Error
+```elixir
+defmodule MyError do
+  defexception message: "Example error"
 end
 ```
 
 ### Raising
 ```elixir
 raise RuntimeError, message: "Overrido"
-```
-
-### Pattern Matching
-```elixir
-try do
-  # ...
-rescue
-  pattern -> err
-end
 ```
 
 
