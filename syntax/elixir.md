@@ -13,7 +13,6 @@
     - [Cond](#cond)
     - [if and unless](#if-and-unless)
     - [With](#with)
-    - [do/end blocks](#doend-blocks)
   - [Modules](#modules)
     - [Attributes](#attributes)
     - [Importing](#importing)
@@ -156,11 +155,6 @@ else
 end
 ```
 
-### do/end blocks
-```elixir
-if true, do: 1 + 2, else: 1 + 3
-```
-
 ## Modules
 ```elixir
 defmodule MyMath do
@@ -171,7 +165,7 @@ end
 ### Attributes
 ```elixir
 defmodule MyMod do
-  @foo
+  @foo "value"
 end
 ```
 
