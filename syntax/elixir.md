@@ -1,5 +1,45 @@
 # Elixir
+<!-- TOC -->
 
+- [Elixir](#elixir)
+  - [DataTypes](#datatypes)
+    - [Strings](#strings)
+    - [Lists](#lists)
+    - [Map](#map)
+  - [Pattern Matching](#pattern-matching)
+  - [Control Flow](#control-flow)
+    - [Comprehension](#comprehension)
+    - [Case](#case)
+    - [Cond](#cond)
+    - [if and unless](#if-and-unless)
+    - [With](#with)
+    - [do/end blocks](#doend-blocks)
+  - [Modules](#modules)
+    - [Attributes](#attributes)
+    - [Importing](#importing)
+    - [Aliasing](#aliasing)
+  - [Functions](#functions)
+    - [Pattern Matching](#pattern-matching-1)
+    - [Guards](#guards)
+  - [Structs](#structs)
+  - [Documentation](#documentation)
+  - [Macros](#macros)
+    - [Use clause](#use-clause)
+  - [Behaviours](#behaviours)
+  - [Protocols](#protocols)
+    - [Available Types](#available-types)
+  - [Errors](#errors)
+    - [Custom Error](#custom-error)
+    - [Raising](#raising)
+  - [Concurrency](#concurrency)
+    - [Spawn](#spawn)
+    - [Tasks](#tasks)
+      - [Waiting Tasks](#waiting-tasks)
+  - [Testing](#testing)
+    - [Fixtures](#fixtures)
+  - [Tools](#tools)
+
+<!-- /TOC -->
 ## DataTypes
 
 ```elixir
@@ -128,7 +168,7 @@ defmodule MyMath do
 end
 ```
 
-### Attributes (metadada)
+### Attributes
 ```elixir
 defmodule MyMod do
   @foo
@@ -212,6 +252,9 @@ end
 ```
 
 ## Macros
+> When we pass parameters to a macro, Elixir doesn't evaluate them, instead, it passes them as tuples representing 
+so we need unquote the params
+
 ```elixir
 defmacro double(n) do
   quote do
@@ -219,6 +262,58 @@ defmacro double(n) do
   end
 end
 ```
+
+### Use clause
+```elixir
+defmodule Entity do
+  defmacro __using__(_opts) do
+    quote do
+      # to insert in use clause
+    end
+  end
+end
+
+defmodule User do
+  use Entity # used __using__ macro
+end
+```
+
+## Behaviours
+A behaviours is like a Interface on Java we need to specify as @callback on parent for require the implementation on child modules
+```elixir
+defmodule Entity do
+  @callback fetchable? :: boolean
+end
+
+defmodule User do
+  @behaviour Entity
+
+  def fetchable?, do: true # Now is required due to behaviour
+end
+```
+
+## Protocols
+Protocols is the base of polymorphic functiosn on Elixir
+```elixir
+defprotocol Inspect do
+  def inspect(thing, opts)
+end
+
+defimpl Inspect, for: PID do
+  def inspect(pid, _opts) do
+    # ...
+  end
+end
+
+defimpl Inspect, for: [List, Tuple] do
+  def inspect(_any, _opts) do
+    # ...
+  end
+end
+```
+
+### Available Types
+Any Atom BitString Float Function Integer List Map PID Port Record Reference Tuple
 
 ## Errors
 ```elixir
@@ -235,13 +330,40 @@ end
 ### Custom Error
 ```elixir
 defmodule MyError do
-  defexception message: "Example error"
+  defexception message: "Example error",
+    other: false
+
+  def full_message(me) do
+    "Full message..."
+  end
 end
 ```
 
 ### Raising
 ```elixir
 raise RuntimeError, message: "Overrido"
+```
+
+## Concurrency
+
+### Spawn
+```elixir
+spawn(Module, :method, [args])
+spawn_link(Module, :method, [args])
+```
+
+
+### Tasks
+```elixir
+Task.async(fn -> IO.puts "Hi" end)
+Task.async(Module, :function, [args])
+```
+
+#### Waiting Tasks
+```elixir
+worker = Task.async(...)
+
+results = Task.await(worker)
 ```
 
 
