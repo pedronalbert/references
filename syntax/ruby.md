@@ -12,6 +12,7 @@
     - [Unless](#unless)
     - [Case](#case)
     - [For](#for)
+    - [Times](#times)
     - [While](#while)
     - [Begin](#begin)
     - [Guard](#guard)
@@ -122,6 +123,13 @@ end
 ### For
 ```ruby
 for i in 1..5 do
+  # ...
+end
+```
+
+### Times
+```ruby
+5.times do
   # ...
 end
 ```
