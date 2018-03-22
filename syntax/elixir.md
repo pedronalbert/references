@@ -4,6 +4,7 @@
 - [Elixir](#elixir)
   - [DataTypes](#datatypes)
     - [Strings](#strings)
+      - [Interpolation](#interpolation)
     - [Lists](#lists)
     - [Map](#map)
   - [Pattern Matching](#pattern-matching)
@@ -55,6 +56,8 @@
 << 0, 1, 2 >> # Binaries
 ```
 ### Strings
+
+#### Interpolation
 ```elixir
 "Hello #{world}" # Interpolation
 "Hello" <> "World" # Concatenate
@@ -71,13 +74,13 @@ tl # Tail
 ### Map
 ```elixir
 # Declaration
-%{ :a => 1, :b => 2 } == %{ a: 1, b: 2 }
+%{foo: "bar"}
 
 # Access
-map.a == Map.fetch(map, :a)
+map.foo
 
 # Update
-%{ map | :b => 3 }
+%{ map | foo: 1 [, bar: 42] }
 ```
 
 ## Pattern Matching
@@ -207,9 +210,8 @@ fn x -> x * 2 end
 
 ### Pattern Matching
 ```elixir
-def (pattern) do
-  # ...
-end
+def (%Ecto.Changeset{} = cs), do: # ...
+def (%Customer{}, 42), do: #...
 ```
 
 ### Guards

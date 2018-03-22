@@ -1,56 +1,160 @@
 # Ruby
+<!-- TOC -->
+
+- [Ruby](#ruby)
+  - [DataTypes](#datatypes)
+    - [Arrays](#arrays)
+  - [Modules](#modules)
+    - [Include](#include)
+    - [Extend](#extend)
+  - [Control Flow](#control-flow)
+    - [If](#if)
+    - [Unless](#unless)
+    - [Case](#case)
+    - [For](#for)
+    - [While](#while)
+    - [Begin](#begin)
+    - [Guard](#guard)
+  - [Functions](#functions)
+    - [Lambdas](#lambdas)
+    - [Aliases](#aliases)
+  - [Blocks](#blocks)
+  - [Classes](#classes)
+    - [Instanciate](#instanciate)
+    - [Properties](#properties)
+    - [Constructor](#constructor)
+    - [Getter & Setter](#getter--setter)
+    - [Attr Accessors](#attr-accessors)
+    - [Inheritance](#inheritance)
+    - [Override Methods](#override-methods)
+  - [Errors](#errors)
+
+<!-- /TOC -->
+## DataTypes
+```ruby
+42 # Int
+42.24 # Floats
+[1, 2, 3] # Arrays
+{foo: "var"} # Hahes
+```
+
+### Arrays
+```ruby
+list[1..3] # Slicing
+```
+
+## Modules
+```ruby
+module Users
+  # ...
+  def self.list
+    # users
+  end
+end
+
+# Deep modules
+module Entities::Users
+```
+
+### Include
+>Add module's methods as instance methods
+```ruby
+module Animal
+  def greet
+    puts self.class
+  end
+end
+
+class Cat
+  include Animal
+end
+
+Cat.new.greet # => Cat
+```
+
+### Extend
+>Add module's methods as class methods
+```ruby
+module Animal
+  def greet
+    puts self.class
+  end
+end
+
+class Cat
+  extend Animal
+end
+
+Cat.greet
+```
 
 ## Control Flow
 
-### Conditionals
+### If
+
 ```ruby
-if cnd and cnd2
+if condition
   # ...
-elsif cnd3
+elsif condition
+  # ...
+else
   # ...
 end
+```
 
+### Unless
+```ruby
 unless cnd
   # ...
 end
+```
 
+### Case
+```ruby
 case foo
-  when cnd
+  when condition
     # ...
   else
     # ...
 end
 ```
 
-### Bucles
+### For
 ```ruby
 for i in 1..5 do
   # ...
 end
+```
 
+### While
+```ruby
 while cnd do
   # ...
 end
+```
 
+### Begin
+```ruby
 begin
   # ...
 end while cnd
 ```
 
-### Guard Clause
+### Guard
 ```ruby
-puts "Hello" if cnd
+call_foo if cnd
+call_foo unless cnd
 ```
 
 ## Functions
-```go
+```ruby
 def foo(a, b, *args)
   # ...
 end
 ```
 
 ### Lambdas
-```go
+```ruby
 lmd = -> (name) { puts name }
 ```
 ### Aliases
@@ -75,29 +179,60 @@ end
 
 ## Classes
 
+### Instanciate
+```ruby
+pepe = Pug.new(args)
+```
+
+### Properties
+```ruby
+class Pug
+  @name = "default_name"
+end
+```
+
+### Constructor
+```ruby
+class Pug
+  def initialize(name) 
+    @name = name
+  end
+end
+```
+
+### Getter & Setter
+```ruby
+class Pug
+  # Getter
+  def name
+    @name
+  end
+
+  # Setter
+  def name=(name) 
+    @name = name
+  end
+end
+```
+
+### Attr Accessors
+```ruby
+attr_reader :name
+attr_writer :name
+attr_accessor :name
+```
+
+### Inheritance
 ```ruby
 class Pug < Dog
-  attr_reader :var
-  attr_accessor :fee
-  attr_writer :sim
+end
+```
 
-  def initialize(foo)
-    @foo = foo
-  end
-
-  def foo=(value)
-    @foo = "parsed #{value}"
-  end
-
-  private
-
-  def calc
-    # ...
-  end
-
-  protected
-
-  def operate
+### Override Methods
+```ruby
+class Pug < Dog
+  def greet
+    super 
     # ...
   end
 end

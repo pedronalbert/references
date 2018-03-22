@@ -1,5 +1,41 @@
 # Kotlin
+<!-- TOC -->
 
+- [Kotlin](#kotlin)
+  - [Declaration](#declaration)
+  - [Built-in Types](#built-in-types)
+  - [Packages](#packages)
+    - [Declaration](#declaration-1)
+    - [Import](#import)
+  - [Arrays](#arrays)
+  - [Functions](#functions)
+    - [Declaration](#declaration-2)
+    - [Inline Return](#inline-return)
+    - [Named Arguments](#named-arguments)
+  - [Control Flow](#control-flow)
+    - [If](#if)
+    - [When](#when)
+    - [For](#for)
+    - [While](#while)
+  - [Classes](#classes)
+    - [Instanciate](#instanciate)
+    - [Properties](#properties)
+      - [Getters & Setters](#getters--setters)
+    - [Constructor](#constructor)
+      - [Primary Constructor](#primary-constructor)
+      - [Secondary Constructor](#secondary-constructor)
+    - [Inheritance](#inheritance)
+    - [Override Methods](#override-methods)
+    - [Override Properties](#override-properties)
+      - [Override on Constructor](#override-on-constructor)
+    - [Nested Classes](#nested-classes)
+    - [Inner Classes](#inner-classes)
+    - [Interface](#interface)
+    - [Extensions Functions](#extensions-functions)
+    - [Data Classes](#data-classes)
+    - [Generics](#generics)
+
+<!-- /TOC -->
 ## Declaration
 ```kotlin
 // Mutables
@@ -10,7 +46,7 @@ val n: Int = 42
 
 // Nullable
 var n: Int? = 42
-````
+```
 
 ## Built-in Types
 ```kotlin
