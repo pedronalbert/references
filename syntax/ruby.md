@@ -4,6 +4,7 @@
 - [Ruby](#ruby)
   - [DataTypes](#datatypes)
     - [Arrays](#arrays)
+      - [Slicing](#slicing)
   - [Modules](#modules)
     - [Include](#include)
     - [Extend](#extend)
@@ -29,8 +30,11 @@
     - [Inheritance](#inheritance)
     - [Override Methods](#override-methods)
   - [Errors](#errors)
+    - [Begin/Rescue](#beginrescue)
+    - [CustomError](#customerror)
 
 <!-- /TOC -->
+
 ## DataTypes
 ```ruby
 42 # Int
@@ -40,8 +44,10 @@
 ```
 
 ### Arrays
+#### Slicing
 ```ruby
-list[1..3] # Slicing
+list[1..3] # Inclusive
+list[1,3] # Exclusive
 ```
 
 ## Modules
@@ -114,6 +120,8 @@ end
 ```ruby
 case foo
   when condition
+    # ...
+  when condition1, condition2
     # ...
   else
     # ...
@@ -247,10 +255,23 @@ end
 ```
 
 ## Errors
+
+### Begin/Rescue
 ```ruby
 begin
   raise UnknownError, 'Yep one error'
 rescue UnknownError
   # ...
+end
+```
+
+### CustomError
+```ruby
+class MyError < StandardError
+  attr_reader :other_info
+
+  def initialize(info)
+    @other_info = info
+  end
 end
 ```

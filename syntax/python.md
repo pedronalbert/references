@@ -1,5 +1,36 @@
 # Python
+<!-- TOC -->
 
+- [Python](#python)
+  - [Declaration](#declaration)
+  - [Build-in Types](#build-in-types)
+    - [String](#string)
+    - [Lists](#lists)
+      - [Slicing](#slicing)
+      - [Concatenate](#concatenate)
+      - [Existence](#existence)
+  - [Functions](#functions)
+    - [Declaration](#declaration-1)
+    - [Lambdas](#lambdas)
+  - [Modules](#modules)
+    - [Import](#import)
+  - [Control Flow](#control-flow)
+    - [If](#if)
+    - [For](#for)
+    - [While](#while)
+  - [Classes](#classes)
+    - [Instanciate](#instanciate)
+    - [Properties](#properties)
+    - [Constructor](#constructor)
+    - [Getter & Setter](#getter--setter)
+    - [Static Method](#static-method)
+    - [Inheritance](#inheritance)
+    - [Override Method](#override-method)
+  - [Errors](#errors)
+    - [Try/Except](#tryexcept)
+    - [With](#with)
+
+<!-- /TOC -->
 ## Declaration
 ```python
 n = 42
@@ -22,15 +53,21 @@ True or False # Boolean
 ```
 
 ### Lists
+
+#### Slicing
+> Slicing is exclusive
 ```python
-# Slicing
 list[1:42]
-list[::2] # Slice every 2
+list[::2] # Every 2
+```
 
-# Concatenate
+#### Concatenate
+```python
 list1 + list2
+```
 
-# Exist
+#### Existence
+```python
 name in list # => True/False
 ```
 
@@ -85,44 +122,63 @@ while condition:
 
 ## Classes
 
+### Instanciate
 ```python
-class Pug(Dog):
-  name = "pepe"
-
-  # Constructor
-  def __init__(self, namme):
-    # ...
-
-  # Instance Method
-  def jump(self)
-    # ...
-
-  # Static Method
-  @staticmethod
-  def clone(adn)
-    # ...
-
-  # Override Method
-  def poop(self):
-    super().poop()
-
-  # Getter
-  @property
-  def age(self):
-    # ...
-
-  # Setter
-  @age.setter
-  def age(self, age):
-    self.age = age
-
-# Instanciate Class
-pepe = Pug()
+pepe = Pug(args)
 ```
 
+### Properties
+```python
+class Pug:
+  name = "pepe"
+```
+
+### Constructor
+```python
+class Pug:
+  name = "pepe"
+
+  def __init__(self, name):
+    self.name = name
+```
+
+### Getter & Setter
+```python
+class Pug:
+  age = 10
+
+  @property
+  def age(self):
+    self.age
+
+  @age.setter
+  def age(self, age):
+    self.age = age * 4
+```
+
+### Static Method
+```python
+class Pug:
+  @staticmethod
+  def clone_from(adn):
+    # ...
+```
+
+### Inheritance
+```python
+class Pug(Dog):
+  pass
+```
+
+### Override Method
+```python
+class Pug(Dog):
+  def greet(self):
+    super().greet()
+```
 ## Errors
 
-### Try
+### Try/Except
 ```python
 try:
   # ...
