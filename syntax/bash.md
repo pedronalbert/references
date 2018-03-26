@@ -1,7 +1,27 @@
 # Bash
+<!-- TOC -->
+
+- [Bash](#bash)
+  - [DataTypes](#datatypes)
+  - [Arguments](#arguments)
+  - [Sustitution](#sustitution)
+  - [Control Flow](#control-flow)
+    - [If](#if)
+    - [Case](#case)
+    - [While](#while)
+    - [Until](#until)
+    - [For](#for)
+  - [Functions](#functions)
+
+<!-- /TOC -->
 
 ```sh
 expr # Arithmetic expression
+```
+
+## DataTypes
+```sh
+(foo var) # Arrays
 ```
 
 ## Arguments
@@ -65,6 +85,12 @@ do
 done
 
 for (( i = 0 ; i <= 10 ; i ++ ))
+do
+  # ...
+done
+
+# Arrays
+for foo in "${myArray[@]}"
 do
   # ...
 done
