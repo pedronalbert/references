@@ -11,6 +11,7 @@
       - [Existence](#existence)
   - [Functions](#functions)
     - [Declaration](#declaration-1)
+    - [Keyword Arguments](#keyword-arguments)
     - [Lambdas](#lambdas)
   - [Modules](#modules)
     - [Import](#import)
@@ -28,6 +29,8 @@
     - [Override Method](#override-method)
   - [Errors](#errors)
     - [Try/Except](#tryexcept)
+    - [Custom Error](#custom-error)
+    - [Raising](#raising)
     - [With](#with)
 
 <!-- /TOC -->
@@ -42,6 +45,7 @@ True or False # Boolean
 "Hello" # String
 'Hello' # String
 [1, 2, 3] # Lists
+(1, 2, 3) # Tuple
 {"foo": "var"} # Hash
 ```
 
@@ -77,6 +81,14 @@ name in list # => True/False
 ```python
 def add(x, y, *args, **kwargs):
   # ...
+```
+
+### Keyword Arguments
+```python
+def add(x, y = 42, z = 32):
+  return x * y * z
+
+add(25, z = 42)
 ```
 
 ### Lambdas
@@ -190,6 +202,19 @@ else
   # ...
 finally:
   # ...
+```
+
+### Custom Error
+```python
+class MyError(Exception):
+  def __init__(self, other, message):
+    self.other = other
+    self.message = message
+```
+
+### Raising
+```python
+raise MyError('Hi There')
 ```
 
 ### With
