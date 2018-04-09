@@ -260,8 +260,14 @@ end
 ```ruby
 begin
   raise UnknownError, 'Yep one error'
-rescue UnknownError
+rescue UnknownError => e
   # ...
+rescue UnknownError, ExploitError
+  # ...
+else
+  # No exceptions
+ensure
+  # Always evaluated
 end
 ```
 
