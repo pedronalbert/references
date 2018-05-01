@@ -77,5 +77,3 @@ find [directory]
 locate [directory]
 whereis [command]
 ```
-
-## Pipes & Redirects
