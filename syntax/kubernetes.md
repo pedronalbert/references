@@ -2,11 +2,7 @@
 
 - [Pods](#pods)
   - [Create](#create)
-  - [From Private Registry](#from-private-registry)
-  - [Init Container](#init-container)
-  - [Lifecycle Hooks](#lifecycle-hooks)
-    - [PostStart](#poststart)
-    - [PreStop](#prestop)
+- [Services](#services)
 - [Deployment](#deployment)
   - [Rolling](#rolling)
     - [Upgrade](#upgrade)
@@ -18,8 +14,6 @@
   - [Edit](#edit)
   - [Usage](#usage)
     - [Single Var](#single-var)
-    - [Whole ConfigMap](#whole-configmap)
-    - [Files with Volume](#files-with-volume)
 - [Secrets](#secrets)
   - [Create](#create-2)
   - [Reading as Volume](#reading-as-volume)
@@ -46,9 +40,12 @@ metadata:
   name: kubia
 spec:
   serviceAccountName: account-name
+  imagePullSecrets:
+  - name: my-secret
   containers:
   - name: server
     image: nginx
+    restartPolicy: Always|OnFailure|Never
     resources:
       requests:
         cpu: 20m
@@ -56,51 +53,49 @@ spec:
       limits:
         cpu: 100m
         memory: 1G
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c"]
+      preStop:
+        exec:
+          command: ["/bin/sh", "-c"]
+    livenessProbe:
+      httpGet:
+        path: /heath
+        port: 8080
+        httpHeaders:
+        - name: X-Custom-Header
+          value: value
+        initialDelaySeconds: 15
+        timeoutSeconds: 1
+  initContainers:
+  - name: init-container
+    image: busybox
+    command: ['sh', '-c']
 ```
-### From Private Registry
 ```sh
 kubectl create secret docker-registry <name> \
   --docker-username=username \
   --docker-password=password \
   --docker-email=email@docker.com
 ```
+<!-- END PODS -->
+
+## Services
 ```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
 spec:
-  imagePullSecrets:
-  - name: my-secret
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
 ```
 
-### Init Container
-```yaml
-spec:
-  initContainers:
-  - name: init
-    image: busybox
-    command: ["/bin/sh", "-c"]
-```
-
-### Lifecycle Hooks
-#### PostStart
-```yaml
-spec:
-  containers:
-  - ...
-    lifecycle:
-      postStart:
-        exec:
-          command: ["/bin/sh", "-c"]
-```
-
-#### PreStop
-```yaml
-spec:
-  containers:
-  - ...
-    lifecycle:
-      preStop:
-        exec:
-          command: ["/bin/sh", "-c"]
-```
+<!-- END SERVICES -->
 
 ## Deployment
 > Use --record on creation of a Deployment
@@ -167,35 +162,20 @@ kind: Pod
 spec:
   containers:
   - ...
+    volumeMounts:
+    - name: my-volume
+      mountPath: /etc/conf.d
+      readOnly: true
     env:
     - name: API_URL
       valueFrom:
         configMapKeyRef:
           name: my-config-map
           key: my-key
-```
-
-#### Whole ConfigMap
-```yaml
-kind: Pod
-spec:
-  containers:
-  - ...
     envFrom:
     - prefix: CONFIG_
       configMapRef:
         namme: my-config-map
-```
-#### Files with Volume
-```yaml
-kind: Pod
-spec:
-  containers:
-  - ...
-    volumeMounts:
-    - name: my-volume
-      mountPath: /etc/conf.d
-      readOnly: true
   volumes:
   - name: my-volume
     configMap:
