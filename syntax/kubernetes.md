@@ -38,6 +38,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: kubia
+  labels:
+    app: myApp
 spec:
   serviceAccountName: account-name
   imagePullSecrets:
