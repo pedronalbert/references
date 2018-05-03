@@ -207,6 +207,31 @@ class Pug
 end
 ```
 
+### Methods
+```ruby
+class Pug
+  def greet
+    # ...
+  end
+end
+```
+
+#### Static Methods
+```ruby
+class Pug
+  self.clone
+    # ...
+  end
+end
+
+class Pug
+  class << self
+    def clone
+      # ...
+    end
+  end
+end
+```
 ### Constructor
 ```ruby
 class Pug
