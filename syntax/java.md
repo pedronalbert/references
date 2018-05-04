@@ -141,16 +141,25 @@ class Cat implements Mamal {
 }
 ```
 
-### Abstracts Classes
+### Abstracts
 ```java
 public abstract class Animal {
-  // ...
+  // Required Method
+  abstract void eat();
+
+  public void greet() {
+    // ...
+  }
 }
 ```
 
-### Final Classes
+### Final
 ```java
 public final class Cat {
   // ...
 }
+```
+
+### Nested
+```java
 ```

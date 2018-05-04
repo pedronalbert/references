@@ -1,5 +1,9 @@
 <!-- TOC -->
 
+- [Volumes](#volumes)
+  - [StorageClass](#storageclass)
+  - [PersistentVolume](#persistentvolume)
+  - [PersistentVolumeClaim](#persistentvolumeclaim)
 - [Pods](#pods)
   - [Create](#create)
 - [Services](#services)
@@ -31,6 +35,54 @@
     - [Switch](#switch)
 
 <!-- /TOC -->
+## Volumes
+### StorageClass
+[Docs](https://kubernetes.io/docs/concepts/storage/storage-classes/)
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: my-storage-class
+provisioner: provisioner
+reclaimPolicy: Retain|Delete
+```
+
+### PersistentVolume
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: PersistentVolume
+metadata:
+  name: pv
+spec:
+  capacity:
+    storage: 5G
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain|Delete
+```
+
+### PersistentVolumeClaim
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+    - ReadWriteMany
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 8G
+  storageClassName: scn
+```
+
+<!-- END Volumes -->
 ## Pods
 ### Create
 ```yaml
@@ -53,6 +105,9 @@ spec:
       limits:
         cpu: 100m
         memory: 1G
+    volumeMounts:
+    - name: volume
+      mountPath: /var/data
     lifecycle:
       postStart:
         exec:
@@ -67,8 +122,12 @@ spec:
         httpHeaders:
         - name: X-Custom-Header
           value: value
-        initialDelaySeconds: 15
-        timeoutSeconds: 1
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+    volumes:
+    - name: volume
+      persistentVolumeClaim:
+        name: pvc
   initContainers:
   - name: init-container
     image: busybox
@@ -76,9 +135,10 @@ spec:
 ```
 ```sh
 kubectl create secret docker-registry <name> \
-  --docker-username=username \
-  --docker-password=password \
-  --docker-email=email@docker.com
+  --docker-username=<username> \
+  --docker-password=<password> \
+  --docker-email=<email> \
+  --docker-server=<server>
 ```
 <!-- END PODS -->
 
@@ -148,6 +208,14 @@ kubectl rollout resume deployment <name>
 kubectl create configmap <name> --from-literal=sleep-interval=25
 kubectl create configmap <name> --from-tile=config-file.conf
 kubectl create configmap <name> --from-file=dir/
+```
+
+```yaml
+apiVersion: v1
+data:
+  API_URL: "localhost"
+metadata:
+  name: my-config
 ```
 
 ### Edit

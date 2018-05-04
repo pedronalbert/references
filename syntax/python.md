@@ -32,6 +32,8 @@
     - [Custom Error](#custom-error)
     - [Raising](#raising)
     - [With](#with)
+  - [Test](#test)
+    - [Assertion](#assertion)
 
 <!-- /TOC -->
 ## Declaration
@@ -220,4 +222,23 @@ raise MyError('Hi There')
 ### With
 ```python
 with open("file.text)
+```
+
+## Test
+```python
+class MyTest(unittest.TestCase):
+  def setUp(self):
+    pass
+  
+  def tearDown(self):
+    pass
+
+  def test_method(self):
+    pass
+```
+
+### Assertion
+```python
+def test_method():
+  self.assertIn(value, source)
 ```
