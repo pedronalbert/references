@@ -121,6 +121,11 @@ export default {
 .passive
 ```
 
+### Dinamyc Component
+```html
+<component :is="componentName">
+```
+
 ### Conditional
 #### v-if
 ```html
