@@ -2,23 +2,27 @@
 <!-- TOC -->
 
 - [VueJS](#vuejs)
-  - [Component](#component)
-    - [Props](#props)
-    - [Computed Properties](#computed-properties)
-    - [Watch](#watch)
-    - [Event Dispatch](#event-dispatch)
-  - [Template](#template)
-    - [Binding](#binding)
-      - [Property Binding](#property-binding)
-      - [Event Handler](#event-handler)
-        - [Modifiers](#modifiers)
-    - [Conditional](#conditional)
-      - [v-if](#v-if)
-      - [v-show](#v-show)
-    - [List](#list)
-  - [Froms](#froms)
-    - [v-model](#v-model)
-      - [Modifies](#modifies)
+    - [Component](#component)
+        - [Props](#props)
+        - [Computed Properties](#computed-properties)
+        - [Watch](#watch)
+        - [Event Dispatch](#event-dispatch)
+    - [Template](#template)
+        - [Binding](#binding)
+            - [Property Binding](#property-binding)
+            - [Event Handler](#event-handler)
+                - [Modifiers](#modifiers)
+        - [Dinamyc Component](#dinamyc-component)
+        - [Slots](#slots)
+            - [Named Slot](#named-slot)
+        - [KeepAlive](#keepalive)
+        - [Conditional](#conditional)
+            - [v-if](#v-if)
+            - [v-show](#v-show)
+        - [List](#list)
+    - [Froms](#froms)
+        - [v-model](#v-model)
+            - [Modifies](#modifies)
 
 <!-- /TOC -->
 ## Component
@@ -128,6 +132,50 @@ export default {
 ```html
 <component :is="componentName">
 ```
+
+### Slots
+```html
+<component>
+  <slot></slot>
+</component>
+```
+
+#### Named Slot
+```html
+<div class="container">
+  <header>
+    <slot name="header"></slot>
+  </header>
+  <main>
+    <slot></slot>
+  </main>
+  <footer>
+    <slot name="footer"></slot>
+  </footer>
+</div>
+
+<!-- Usage -->
+<base-layout>
+  <template slot="header">
+    <h1>Here might be a page title</h1>
+  </template>
+
+  <p>A paragraph for the main content.</p>
+
+  <template slot="footer">
+    <p>Here's some contact info</p>
+  </template>
+</base-layout>
+```
+
+### KeepAlive
+Keep component state
+```html
+<keep-alive>
+  <my-component></my-component>
+</keep-alive>
+```
+
 
 ### Conditional
 #### v-if
