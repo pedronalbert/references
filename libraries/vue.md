@@ -40,8 +40,11 @@ export default {
   props: ['title'],
   props: {
     title: {
-      type: String,
+      type: [String, Number],
       required: true,
+      validator(value) {
+        // ...
+      },
     },
   },
 };
