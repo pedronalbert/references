@@ -9,6 +9,9 @@
     - [Ref](#ref)
     - [Provide & Inject](#provide--inject)
     - [Event Dispatch](#event-dispatch)
+    - [Mixins](#mixins)
+    - [Custom Directive](#custom-directive)
+      - [Hooks](#hooks)
   - [Template](#template)
     - [Binding](#binding)
       - [Property Binding](#property-binding)
@@ -28,11 +31,14 @@
       - [Modifies](#modifies)
   - [Animating](#animating)
     - [Transition](#transition)
-      - [Hooks](#hooks)
+      - [Hooks](#hooks-1)
       - [Transition on Init](#transition-on-init)
       - [List Entering/Leaving](#list-enteringleaving)
       - [Caveats](#caveats)
     - [CSS Animation](#css-animation)
+  - [Plugin](#plugin)
+  - [Filters](#filters)
+    - [Usage](#usage)
 
 <!-- /TOC -->
 ## Component
@@ -121,6 +127,41 @@ inject: ['myData']
     },
   },
 };
+```
+
+### Mixins
+```js
+const myMixin = {
+  methods: {
+    //...
+  },
+};
+
+// component definition
+mixins: [myMixin]
+```
+
+### Custom Directive
+```js
+Vue.directive('foo', {
+  // ...hooks
+})
+
+// shorthand
+Vue.directive('foo', (el, binding) => {
+  // ...
+});
+```
+
+#### Hooks
+```js
+{
+  bind() {},
+  inserted() {},
+  update() {},
+  componentUpdated() {},
+  unbind() {}
+}
 ```
 ## Template
 ### Binding
@@ -323,3 +364,32 @@ CSS animations are applied in the same way as CSS transitions, the difference be
 
 
 ![Transition CSS Timeline](https://vuejs.org/images/transition.png)
+
+## Plugin
+```js
+const MyPlugin = {
+  install(Vue, options) {
+    Vue.globalMethod() {},
+    Vue.directive('foo', {}),
+    Vue.mixin({}),
+    Vue.prototype.$myMethod() {},
+  },
+};
+
+// usage
+Vue.use(MyPlugin);
+```
+
+## Filters
+>You can define local filters in component definition
+```js
+Vue.filter('foo', (value, arg) => {
+
+});
+```
+
+### Usage
+```html
+{{ message | filter }}
+<div :id="id | filter('arg')">
+```
