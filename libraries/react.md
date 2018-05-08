@@ -92,6 +92,30 @@ render()  {
 }
 ```
 
+#### Forwarding
+[Docs](https://reactjs.org/docs/forwarding-refs.html)
+```js
+const MyButton = React.forwardRef((props, ref) => (
+  <button ref="ref">
+    {props.children}
+  </button>
+));
+
+class MyComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.buttonRef = React.createRef();
+  }
+
+  render() {
+    return <div>
+      <MyButton ref={this.buttonRef} />
+    </div>
+  }
+}
+```
+
 ### Portal
 ```js
 render() {
@@ -174,11 +198,9 @@ import { Fragment } from 'react';
 ## High Order Components
 ### Proxy Pass
 ```js
-function ppHOC(WrappedComponent) {
-  return class PP extends React.Component {
-    render() {
-      return <WrappedComponent {...this.props} />
-    }
+const ppHOC = (WrapperdComponent) => {
+  return class PP extends Component {
+    // ...
   }
 }
 ```
