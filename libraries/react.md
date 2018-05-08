@@ -1,15 +1,42 @@
 # React
 
-## List Rendering
+## Component
 ```js
-{users.map(user => <UserProfile user={user} />)}
-```
-## Event Handling
-```js
-<button onClick={eventHandler} />
+// functional
+const MyComponent = props => (<div>
+  ...
+</div>);
+
+// stateful
+class MyComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      //...
+    }
+  }
+
+  render() {
+    return (<div>
+      ...
+    </div>)
+  }
+}
 ```
 
-## LifeCycle Methods
+### State
+```js
+this.setState({
+  // ...
+});
+
+this.setState((state, props) => ({
+  //...
+}));
+```
+
+### LifeCycle Methods
 ```js
 componentWillMount()
 componentDidMount()
@@ -20,12 +47,112 @@ componentDidUpdate(prevProps, prevState)
 componentWillUnmount()
 ```
 
-## Refs
+### Proptypes
 ```js
-<input ref={ref => { this.myInput = ref }}
+.array
+.bool
+.func
+.number
+.object
+.string
+.symbol
+.node
+lemement
+.instanceOf()
+.oneOf(types: Any[])
+.oneOfType(types: PropType[])
+.arrayOf(type: PropType)
+.objectOf(type: PropType)
+.shape({
+  key: PropType
+})
+
+.isRequired
 ```
 
-## Fragment
+### Error Handling
+```js
+componentDidCatch(error, info)
+```
+
+### Refs
+```js
+constructor(props) {
+  super(props);
+
+  this.myInput = React.createRef();
+}
+
+focusInput() {
+  this.myInput.current.focus();
+}
+
+render()  {
+  return <input ref={this.myInput} />
+}
+```
+
+### Portal
+```js
+render() {
+  return React.createPortal(
+    <Component />,
+    domNode
+  );
+}
+```
+
+## JSX
+
+### Binding
+```js
+<div>{bar}</div>
+```
+
+#### Property
+```js
+<MyComponent foo={bar}>
+```
+
+### List
+```js
+{users.map(user => <UserProfile
+  user={user}
+  key={user.id}
+/>)}
+```
+
+### Event Handling
+[SyntheticEvent Docs](https://reactjs.org/docs/events.html)
+```js
+const eventHandler = (e: SyntheticEvent) => {
+  //...
+};
+
+<button onClick={eventHandler} />
+<button onClick={eventHandler.bind(this, user)} />
+<button onClick={(e) => eventHandler.bind(this, e)} />
+```
+
+> When you define a eventHandler on class component you have to bind the handers
+```js
+class MyComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+}
+```
+
+### Children
+```js
+<div>
+  {props.children}
+</div>
+```
+
+### Fragment
 ```js
 import { Fragment } from 'react';
 
@@ -35,10 +162,14 @@ import { Fragment } from 'react';
 </Fragment>
 ```
 
-## Error Handling
+#### Short Syntax
 ```js
-componentDidCatch(error, info)
+<>
+  <Component1 />
+  <Component2 />
+</>
 ```
+
 
 ## High Order Components
 ### Proxy Pass
