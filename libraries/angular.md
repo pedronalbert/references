@@ -11,9 +11,11 @@
       - [(Getter/Setter)](#gettersetter)
     - [Two-Way Bind Component](#two-way-bind-component)
     - [@ViewChild](#viewchild)
+    - [Dynamic](#dynamic)
     - [Animations](#animations)
       - [Callbacks](#callbacks)
   - [Services](#services)
+    - [HttpInterceptor](#httpinterceptor)
   - [Directives](#directives)
     - [ElementRef](#elementref)
     - [HostListener](#hostlistener)
@@ -42,6 +44,7 @@
     - [ActivatedRoute service](#activatedroute-service)
     - [Router Events](#router-events)
     - [Guard](#guard)
+      - [Types](#types)
 
 <!-- /TOC -->
 ## Modules
@@ -51,6 +54,7 @@
   exports: [], // exportable declarations
   imports: [], // modules to import
   providers: [], // services
+  entryComponents: [], // dynamic components
 })
 export class AppModule {
   // ...
@@ -162,6 +166,39 @@ class MyComponent {
 }
 ```
 
+### Dynamic
+```js
+import { Component, ViewChild, ComponentFactoryResolver, ComponentRef, ViewContainerRef } from '@angular/core';
+
+class MyComponent {
+  alertRef: ComponentRef<AlertComponent>;
+  @ViewChild('alertBox', {read: ViewContainerRef}) alertBox: ViewContainerRef;
+
+  constructor(private ComponentFactoryResolver: ComponentFactoryResolver) {}
+
+  alert() {
+    if (!this.alertRef) {
+      const alertComponent = this.ComponentFactoryResolver.resolveComponentFactory(AlertComponent);
+
+      this.alertRef = this.alertBox.createComponent(alertComponent);
+    }
+
+    this.alertRef.instance.property = data; // Bind Data
+    this.alertRef.changeDetectorRef.detectChanges(); // Detect Changes
+  }
+
+  destroyAlert() {
+    if (this.alertRef) {
+      this.alertRef.destroy();
+    }
+  }
+}
+```
+
+```html
+<!-- template -->
+<ng-template #alertBox></ng-template>
+```
 ### Animations
 ```js
 // component.ts
@@ -203,6 +240,45 @@ class MyComponent {
     private service: HeroService
   )
 }
+```
+
+### HttpInterceptor
+```ts
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import {
+  HttpEvent,
+  HttpInterceptor,
+  HttpResponse,
+  HttpHandler,
+  HttpRequest,
+} from '@angular/common/http';
+
+@Injectable()
+export class MyInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const request = req.clone();
+
+    return next
+      .handle(request)
+      .do(event => {
+        if (event instanceof HttpResponse) {
+          // ...
+        }
+      })
+  }
+}
+
+// AppModule
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+providers: [
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: MyInterceptor,
+    multi: true,
+  },
+],
 ```
 
 ## Directives
@@ -278,6 +354,7 @@ class MyDirective {
 ```html
 <div>
   <ng-content></ng-content>
+  <ng-content select="my-component"></ng-content>
 </div>
 ```
 
@@ -404,32 +481,47 @@ ng-valid ng-invalid
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/forums', pathMatch: 'full' },
+  { path: '**', component: NotFoundPage },
   {
-    path: 'users/:id',
-    component: UsersComponent,
-    data: { ...data },
+    path: '/forums',
+    component: ForumsListComponent,
+    children: [
+      { path: 'slug', component: ForumComponent },
+    ],
   },
-  { path: '/customers', redirectTo: '/users' },
-  { path: '**', component: PageNotFound },
+  // Secondary Router
+  { path: 'chats', component: ChatListComponent, outlet: 'chat' },
+  { path: 'chats/:userId', component: ChatComponent, outlet: 'chat' },
+  // LazyLoadng
+  { path: 'blogs', loadChildren: 'app/blogs/blogs.module#BlogsModule' },
 ];
 
-@NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-  ],
-})
-class AppModule;
+// AppModule
+providers: [
+  RouterModule.forRoot(routes),
+]
+
+// ChildModule
+providers: [
+  RouterModule.forChild(routes),
+]
 ```
 ```html
 <!-- template.html -->
 <router-outlet></router-outlet>
+<router-outlet name="chat"></router-outlet>
 ```
 
 ### Link
 [Docs](https://angular.io/guide/router#router-links)
 ```html
+<!-- anchor -->
 <a routerLink="/users" [queryParams]="params">
+
+<!-- other -->
+<tr routerLink="/users">
 ```
 
 ### ActivatedRoute service
@@ -476,4 +568,13 @@ export class MyGuard implements CanActivate {
 
 // routes.ts
 export [ { path: '/foo', canActivate: [MyGuard] } ];
+```
+
+#### Types
+```ts
+CanActivate
+CanActivateChild
+CanDeactivate
+CanLoad
+Resolve
 ```
