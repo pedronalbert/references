@@ -7,6 +7,7 @@
     - [LyfeCycle Methods](#lyfecycle-methods)
     - [Event Dispatch](#event-dispatch)
     - [Props](#props)
+      - [Validating](#validating)
       - [(Getter/Setter)](#gettersetter)
     - [Two-Way Bind Component](#two-way-bind-component)
     - [@ViewChild](#viewchild)
@@ -20,6 +21,8 @@
     - [Binding](#binding)
       - [Property Binding](#property-binding)
       - [Event Handler](#event-handler)
+    - [NgClass](#ngclass)
+    - [NgContent](#ngcontent)
     - [Conditional](#conditional)
       - [NgIf](#ngif)
       - [NgSwitch](#ngswitch)
@@ -99,6 +102,21 @@ class MyComponent {
 
 // template
 <my-component [user]="currentUser">
+```
+
+#### Validating
+```js
+class MyComponent {
+  private _foo: number = 0;
+
+  @Input('foo')
+  set foo(foo: number) {
+    // validations
+    this._foo = foo;
+  }
+
+  get foo(): number { return this._foo; }
+}
 ```
 
 #### (Getter/Setter)
@@ -247,6 +265,20 @@ class MyDirective {
 (change)="onChange()"
 (click)="onClick(user)"
 (deleteComment)="handleDeleteComment($event)
+```
+
+### NgClass
+```html
+[ngClass]="['one', 'two']"
+[ngClass]="{active: isActive}"
+```
+
+### NgContent
+> ContentChilde
+```html
+<div>
+  <ng-content></ng-content>
+</div>
 ```
 
 ### Conditional
