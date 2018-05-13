@@ -34,10 +34,13 @@
   - [Forms](#forms)
     - [Template Form](#template-form)
     - [Reactive Form](#reactive-form)
-      - [Properties](#properties)
       - [Methods](#methods)
-    - [Field State](#field-state)
+      - [Watch](#watch)
+    - [Field](#field)
+      - [Properties](#properties)
+      - [State](#state)
     - [CSS Classes](#css-classes)
+    - [Custom Validator](#custom-validator)
   - [Routing](#routing)
     - [Definition](#definition)
     - [Link](#link)
@@ -443,15 +446,6 @@ class MyComponent {
 </form>
 ```
 
-#### Properties
-> To get a field you have to myForm.get(field_name)
-```ts
-field.value
-field.status
-field.pristine
-field.untouched
-```
-
 #### Methods
 ```ts
 form.setControl(name, value);
@@ -460,13 +454,41 @@ form.setValue({
 });
 ```
 
+#### Watch
+```ts
+this.myForm.get(field)
+  .valueChanges
+  .subscribe(value => {
+    // ...
+  });
+```
 
-### Field State
-You can access to field state with a template variable and u
+### Field
+
+#### Properties
+> To get a field you have to myForm.get(field_name)
+```ts
+.valid
+.invalid
+.disabled
+.enabled
+.errors
+  .required
+  .minLength
+.pristine
+.dirty
+.touched
+.untouched
+```
+
+
+#### State
+You can access to field state with a template variable
 ```html
 <input [(ngModel)]="model.name" #name="ngModel">
-{{ name.valid }}
-{{ name.pristine }}
+
+<!-- usage -->
+{{ name.invalid }}
 ```
 
 ### CSS Classes
@@ -474,6 +496,40 @@ You can access to field state with a template variable and u
 ng-touched ng-untouched
 ng-dirty ng-pristine
 ng-valid ng-invalid
+```
+
+### Custom Validator
+```js
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+
+export function MyValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } => {
+    const value = control.value;
+
+    return valid ? null : { foo: true };
+  };
+}
+
+// directive
+import { Validator, NG_VALIDATORS } from 'angular/forms';
+
+@Directive({
+  selector: '[foo][ngModel]',
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useExisting: MyValidator,
+      multi: true,
+    },
+  ],
+})
+class MyValidatorDirective implements Validator {
+  private validator = MyValidator();
+
+  validate(control: AbstractControl): { [key: string]: any } {
+    return this.validator(control);
+  }
+}
 ```
 
 ## Routing
