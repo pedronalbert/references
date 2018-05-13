@@ -3,6 +3,8 @@
 
 - [React](#react)
   - [Component](#component)
+    - [Functional](#functional)
+    - [Stateful](#stateful)
     - [State](#state)
     - [LifeCycle Methods](#lifecycle-methods)
     - [Proptypes](#proptypes)
@@ -15,6 +17,7 @@
       - [Property](#property)
     - [List](#list)
     - [Event Handling](#event-handling)
+      - [Caveats](#caveats)
     - [Children](#children)
     - [Fragment](#fragment)
       - [Short Syntax](#short-syntax)
@@ -24,13 +27,15 @@
 
 <!-- /TOC -->
 ## Component
+### Functional
 ```js
-// functional
 const MyComponent = props => (<div>
   ...
 </div>);
+```
 
-// stateful
+### Stateful
+```js
 class MyComponent extends Component {
   constructor(props) {
     super(props);
@@ -80,7 +85,7 @@ componentWillUnmount()
 .string
 .symbol
 .node
-lemement
+.element
 .instanceOf()
 .oneOf(types: Any[])
 .oneOfType(types: PropType[])
@@ -181,6 +186,7 @@ const eventHandler = (e: SyntheticEvent) => {
 <button onClick={(e) => eventHandler.bind(this, e)} />
 ```
 
+#### Caveats
 > When you define a eventHandler on class component you have to bind the handers
 ```js
 class MyComponent extends Component {
