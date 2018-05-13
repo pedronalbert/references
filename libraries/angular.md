@@ -17,8 +17,8 @@
   - [Services](#services)
     - [HttpInterceptor](#httpinterceptor)
   - [Directives](#directives)
-    - [ElementRef](#elementref)
-    - [HostListener](#hostlistener)
+    - [Attribute](#attribute)
+    - [Structural](#structural)
   - [Template](#template)
     - [Binding](#binding)
       - [Property Binding](#property-binding)
@@ -282,37 +282,40 @@ providers: [
 ```
 
 ## Directives
-
+### Attribute
+> You can implement lifecycle hooks and inputs
+```sh
+ng generate directive <path>
+```
 ```js
 @Directive({
   selector: '[myDirective]',
 })
 export class MyDirective {
-  // ...
-}
-```
-
-### ElementRef
-Used on attribute directives
-```js
-class MyDirective {
   constructor(private el: ElementRef) {
     this.el.nativeElement; // Native DOM
   }
-}
-```
 
-### HostListener
-[Docs](https://angular.io/guide/attribute-directives#respond-to-user-initiated-events)
-```js
-class MyDirective {
   @HostListener('mouseenter') onMouseEnter() {
     // ...
   }
 }
 ```
 
-
+### Structural
+```js
+@Directive({
+  selector: '[delay]',
+})
+export class MyDirective {
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainer: ViewContainerRef
+  ) {
+    this.viewContainer.createEmbeddedView(this.templateRef);
+  }
+}
+```
 
 ## Template
 [Docs](https://angular.io/guide/template-syntax)
@@ -384,7 +387,7 @@ class MyDirective {
 ### Pipes
 [Docs](https://angular.io/guide/pipes)
 ```html
-{{ username | uppercase:arg1, arg2}}
+{{ username | uppercase:arg1:arg2}}
 ```
 ```js
 @Pipe({ name: 'uppercase' });
