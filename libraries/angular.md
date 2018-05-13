@@ -48,6 +48,9 @@
     - [Router Events](#router-events)
     - [Guard](#guard)
       - [Types](#types)
+  - [Test](#test)
+    - [Pipes](#pipes-1)
+    - [Components](#components-1)
 
 <!-- /TOC -->
 ## Modules
@@ -636,4 +639,49 @@ CanActivateChild
 CanDeactivate
 CanLoad
 Resolve
+```
+
+## Test
+
+### Pipes
+```ts
+describe('MyPipe', () => {
+  const pipe = new MyPipe();
+
+  it('should transform value', () => {
+    expect(pipe.transform(data)).toEqual(data);
+  });
+});
+```
+
+### Components
+```ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';s
+
+describe('MyComponent', () => {
+  let component: MyComponent;
+  let fixture: ComponentFixture<MyComponent>;
+  let el: HTMLElement;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        // ...
+      ],
+      declarations: [
+        MyComponent,
+      ],
+      providers: [
+        { provide: MyService, useClass: MyStubService },
+      ],
+    });
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MyComponent);
+    component = fixture.componentInstance;
+    el = fixture.debugElement.nativeElement;
+    fixture.detectChanges();
+  });
+})
 ```
