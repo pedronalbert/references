@@ -26,6 +26,7 @@ Route::method('path', 'Controller@method');
 ### REST
 ```php 
  Route::resource('user', 'UserController');
+ Route::apiResource('user', 'UsersController');
 ```
 
 ### Naming
