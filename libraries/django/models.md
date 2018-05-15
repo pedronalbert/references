@@ -4,6 +4,8 @@
 - [Django Models](#django-models)
   - [FieldTypes](#fieldtypes)
   - [FieldOptions](#fieldoptions)
+  - [Methods](#methods)
+    - [Override Predefined](#override-predefined)
   - [Inheritance](#inheritance)
     - [Abstract Models](#abstract-models)
     - [MultiTable Inheritance](#multitable-inheritance)
@@ -72,6 +74,23 @@ db_index = Boolean
 db_tablespace = String
 ```
 
+## Methods
+```py
+class Person(models.Model):
+  @property
+  def full_name(self):
+    return "%s %s" % (self.first_name, self.last_name)
+```
+
+### Override Predefined
+```py
+class User(models.Model):
+  def save(self, *args, **kwargs):
+    # ...
+    super().save(*args, **kwargs)
+    # ...
+```
+
 ## Inheritance
 
 ### Abstract Models
@@ -128,7 +147,7 @@ class User(models.Model):
   first_name = models.CharField(opts)
 
 class Post(models.Model):
-  user = models.ForeignKey(User)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
 ```
 
 ### ManyToMany
