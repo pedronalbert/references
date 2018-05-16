@@ -112,7 +112,7 @@ $request->query($name, $defaultValue?);
 ### View
 ```php
 response()->view(string $name, array $data?, integer $statusCode);
-view(string $name, array $data?);
+view(string $name, array $data?, integer $status?);
 ```
 
 ### Json

@@ -264,3 +264,24 @@ $loop->parent
   ...
 @endphp
 ```
+
+## Service
+The @inject directive may be used to retrieve a service from the Laravel service container. The first argument passed to @inject is the name of the variable the service will be placed into, while the second argument is the class or interface name of the service you wish to resolve.
+
+```html
+@inject('metrics', 'App\Services\MetricsService')
+
+<div>
+  {{ $metrics->foo() }}
+</div>
+```
+
+## Custom Directive
+Should be place in the **boot** method of your **AppServiceProvider**
+```php
+use Illuminate\Support\Facades\Blade;
+
+Blade::directive('foo', function ($expression) {
+  return '<?php echo ($expression) ?>';
+});
+```
