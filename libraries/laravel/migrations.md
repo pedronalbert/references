@@ -1,9 +1,6 @@
 # Laravel Migrations
 
 ## Definition
-```sh
-php artisan make:migration create_users_table
-```
 
 ```php
 use Illuminate\Support\Facades\Schema;
