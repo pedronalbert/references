@@ -1,2 +1,2 @@
 ## Caveats
-Usar will-change puede provocar error con elementos hijos en position fixed
+Usa un transform hace que position fixed en los hijos no funcione
