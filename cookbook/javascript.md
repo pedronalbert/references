@@ -40,3 +40,19 @@ const flying = (obj) => {
   };
 };
 ```
+
+## Singleton
+```js
+const Singleton = function () {
+  return {
+    getInstance: function() {
+      return this;
+    }
+  }
+}
+```
+
+El exports siempre se cache por lo cual si devolvemos una instancia hará como singleton
+```js
+module.exports = new Cat();
+```

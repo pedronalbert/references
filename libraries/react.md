@@ -1,31 +1,5 @@
 # React
-<!-- TOC -->
-
-- [React](#react)
-  - [Component](#component)
-    - [Functional](#functional)
-    - [Stateful](#stateful)
-    - [State](#state)
-    - [LifeCycle Methods](#lifecycle-methods)
-    - [Proptypes](#proptypes)
-    - [Error Handling](#error-handling)
-    - [Refs](#refs)
-      - [Forwarding](#forwarding)
-    - [Portal](#portal)
-  - [JSX](#jsx)
-    - [Binding](#binding)
-      - [Property](#property)
-    - [List](#list)
-    - [Event Handling](#event-handling)
-      - [Caveats](#caveats)
-    - [Children](#children)
-    - [Fragment](#fragment)
-      - [Short Syntax](#short-syntax)
-  - [High Order Components](#high-order-components)
-    - [Proxy Pass](#proxy-pass)
-    - [Inheritance Inversion](#inheritance-inversion)
-
-<!-- /TOC -->
+<!-- TOC -->autoauto- [React](#react)auto  - [Component](#component)auto    - [Functional](#functional)auto    - [Stateful](#stateful)auto    - [State](#state)auto    - [LifeCycle Methods](#lifecycle-methods)auto    - [Proptypes](#proptypes)auto    - [Error Handling](#error-handling)auto    - [Refs](#refs)auto      - [Forwarding](#forwarding)auto    - [Portal](#portal)auto    - [Hooks](#hooks)auto      - [UseState](#usestate)auto      - [UseEffect](#useeffect)auto  - [JSX](#jsx)auto    - [Binding](#binding)auto      - [Property](#property)auto    - [List](#list)auto    - [Event Handling](#event-handling)auto      - [Caveats](#caveats)auto    - [Children](#children)auto    - [Fragment](#fragment)auto      - [Short Syntax](#short-syntax)auto  - [High Order Components](#high-order-components)auto    - [Proxy Pass](#proxy-pass)auto    - [Inheritance Inversion](#inheritance-inversion)autoauto<!-- /TOC -->
 ## Component
 ### Functional
 ```js
@@ -154,6 +128,27 @@ render() {
 }
 ```
 
+### Hooks
+
+#### UseState
+```js
+const Component = () => {
+  const [name, setName] = useState('default name');
+}
+```
+
+#### UseEffect
+
+El Hook useEffect nos permite ejecutar código cuando se monta, desmonta o actualiza nuestro componente, el primer argumento es la funcion y el segundo argumento es un array donde se hará el watch que hara que la función se reejecute
+
+
+```js
+const Component = () => {
+  useEffect(() => {
+    //...
+  }, [name]);
+};
+```
 ## JSX
 
 ### Binding
