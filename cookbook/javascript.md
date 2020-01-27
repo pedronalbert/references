@@ -56,3 +56,37 @@ El exports siempre se cache por lo cual si devolvemos una instancia hará como s
 ```js
 module.exports = new Cat();
 ```
+
+## Streams
+
+### Writable
+```js
+const { Writable } = require('stream');
+
+const ws = new Writable({
+  write(chunk, encoding, cb) {
+    // ...
+  }
+})
+
+// Métodos
+ws.write(data)
+ws.end()
+```
+
+### Readable
+> Se da como terminada la lectura cuando se inserta un `null`
+
+```js
+const { Readable } = require('stream');
+
+const rs = new Readable({
+  read(size) {
+
+  }
+});
+
+// Metodos
+
+rs.push(data);
+```
