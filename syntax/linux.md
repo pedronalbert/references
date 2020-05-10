@@ -1,5 +1,25 @@
 # Linux
 
+## Execution
+```
+command &  (Execute command in background)
+ctrl+z (Send current command to bakcground)
+jobs (List background command)
+fg <number> (Place command to foreground)
+```
+
+## Permissions
+- 1 Execution (x)
+- 2 Writing (w)
+- 4 Read (r)
+
+```
+chmod 777 FILE
+chmod +x FILE
+chmod g-x FILE
+chown user FILE
+```
+
 ## Users and Groups
 ```
 id NAME
@@ -12,7 +32,7 @@ passwd [user]
 
 ## Compression with tar
 ```
-tar [options] [path]
+tar [options] FILENAME PATH
 
   OPTIONS
     -x  Extract
@@ -73,7 +93,14 @@ ifdown [interface]
 
 ## Search
 ```
-find [directory]
-locate [directory]
-whereis [command]
+locate FILENAME
+whereis COMMAND_NAME
+
+find DIRECTORY CRITERIA
+  CRITERIAS
+    -user NAME
+    -perm VALUE
+    -type f,d,l
+    -name NAME
+    -exec COMMAND {}.. \;.   (Brackets are replaced by file found)
 ```
