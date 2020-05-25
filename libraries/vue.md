@@ -1,46 +1,5 @@
 # VueJS
-<!-- TOC -->
-
-- [VueJS](#vuejs)
-  - [Component](#component)
-    - [Props](#props)
-    - [Computed Properties](#computed-properties)
-    - [Watch](#watch)
-    - [Ref](#ref)
-    - [Provide & Inject](#provide--inject)
-    - [Event Dispatch](#event-dispatch)
-    - [Mixins](#mixins)
-    - [Custom Directive](#custom-directive)
-      - [Hooks](#hooks)
-  - [Template](#template)
-    - [Binding](#binding)
-      - [Property Binding](#property-binding)
-      - [Event Handler](#event-handler)
-        - [Modifiers](#modifiers)
-    - [Dinamyc Component](#dinamyc-component)
-    - [Slots](#slots)
-      - [Named Slot](#named-slot)
-    - [KeepAlive](#keepalive)
-    - [v-once](#v-once)
-    - [Conditional](#conditional)
-      - [v-if](#v-if)
-      - [v-show](#v-show)
-    - [List](#list)
-  - [Froms](#froms)
-    - [v-model](#v-model)
-      - [Modifies](#modifies)
-  - [Animating](#animating)
-    - [Transition](#transition)
-      - [Hooks](#hooks-1)
-      - [Transition on Init](#transition-on-init)
-      - [List Entering/Leaving](#list-enteringleaving)
-      - [Caveats](#caveats)
-    - [CSS Animation](#css-animation)
-  - [Plugin](#plugin)
-  - [Filters](#filters)
-    - [Usage](#usage)
-
-<!-- /TOC -->
+<!-- TOC -->autoauto- [VueJS](#vuejs)auto  - [Component](#component)auto    - [Props](#props)auto    - [Computed Properties](#computed-properties)auto    - [Watch](#watch)auto    - [Ref](#ref)auto    - [Provide & Inject](#provide--inject)auto    - [Event Dispatch](#event-dispatch)auto    - [Mixins](#mixins)auto    - [Custom Directive](#custom-directive)auto      - [Hooks](#hooks)auto  - [Template](#template)auto    - [Binding](#binding)auto      - [Property Binding](#property-binding)auto      - [Event Handler](#event-handler)auto        - [Modifiers](#modifiers)auto    - [Dinamyc Component](#dinamyc-component)auto    - [Slots](#slots)auto      - [Named Slot](#named-slot)auto    - [KeepAlive](#keepalive)auto    - [v-once](#v-once)auto    - [Conditional](#conditional)auto      - [v-if](#v-if)auto      - [v-show](#v-show)auto    - [List](#list)auto  - [Froms](#froms)auto    - [v-model](#v-model)auto      - [Modifies](#modifies)auto  - [Animating](#animating)auto    - [Transition](#transition)auto      - [Hooks](#hooks-1)auto      - [Transition on Init](#transition-on-init)auto      - [List Entering/Leaving](#list-enteringleaving)auto      - [Caveats](#caveats)auto    - [CSS Animation](#css-animation)auto  - [Plugin](#plugin)auto  - [Filters](#filters)auto    - [Usage](#usage)auto  - [Cookbook](#cookbook)auto    - [Event Bus](#event-bus)autoauto<!-- /TOC -->
 ## Component
 ```js
 export default {
@@ -392,4 +351,11 @@ Vue.filter('foo', (value, arg) => {
 ```html
 {{ message | filter }}
 <div :id="id | filter('arg')">
+```
+
+## Cookbook
+
+### Event Bus
+```js
+
 ```
