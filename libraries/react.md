@@ -149,6 +149,58 @@ const Component = () => {
   }, [name]);
 };
 ```
+
+#### UseContext
+```js
+const theme = { color: 'pink' };
+const ThemeContext = React.createContext(theme);
+
+const App = () => {
+  return (
+    <ThemeContext.Provider value={themes.dark}>
+      <ThemedButton />
+    </ThemeContext.Provider>
+  );
+}
+
+const ThemedButton = () => {
+  const theme = useContext(ThemeContext);
+
+  return (
+    <button style={{ color: theme.color}}>I am styled by theme context!</button>
+  );
+}
+```
+
+
+
+#### UseReducer
+Muy similar a Redux
+
+```js
+const reducer = (state, action) => {
+  switch(action.payload) {
+    // ...
+  }
+}
+
+// in-component
+const MyComponent = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+}
+```
+
+#### UseCallback
+Utilizado para cachear las funciones esto es muy util para los event handlers debido en que cada render se va a recrear la funcion y no se le hace memoize
+```js
+
+const handleSearch = useCallback(() => {
+
+}, [...listeners]);
+
+<Component onSearch={handleSearch} />
+```
+
 ## JSX
 
 ### Binding

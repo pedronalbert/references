@@ -145,6 +145,14 @@ Vue.directive('foo', (el, binding) => {
 @click="onClick($event)"
 @click="count += 1"
 ```
+
+##### Hooks Events
+We can also listen to vue-component hooks
+
+```html
+@hook:mounted="onMounted"
+```
+
 ##### Modifiers
 ```html
 .stop
@@ -357,5 +365,8 @@ Vue.filter('foo', (value, arg) => {
 
 ### Event Bus
 ```js
+const bus = new Vue();
 
+bus.$emit(...);
+bus.$on(...);
 ```
