@@ -23,3 +23,8 @@ class Users {
   }
 }
 ```
+
+## To remember
+
+> ¿En que consiste y cuando ocurre el hoisting?
+
